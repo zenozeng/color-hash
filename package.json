@@ -1,9 +1,10 @@
 {
   "name": "color-hash",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/color-hash.js",
   "scripts": {
+    "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,5 +15,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zenozeng/color-hash/issues"
-  }
+  },
+  "devDependencies": {}
 }
