@@ -1,3 +1,7 @@
+## Demo
+
+https://zenozeng.github.io/color-hash/demo/
+
 ## Usage
 
 ### Browser

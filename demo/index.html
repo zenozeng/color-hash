@@ -1,0 +1,50 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+     body {
+         width: 80%;
+         margin: 50px auto;
+     }
+     h1 {
+         color: #333;
+     }
+     p {
+         color: #999;
+     }
+     input {
+         width: 100%;
+         color: #777;
+         border: none;
+         border-bottom: 1px solid #777;
+         outline: none;
+         font-size: 24px;
+         padding: .5em;
+         box-sizing: border-box;
+     }
+     #box {
+         margin-top: 50px;
+         width: 100%;
+         height: 50px;
+     }
+    </style>
+</head>
+<body>
+    <h1>Color Hash</h1>
+    <p>Generate color based on the given string.</p>
+    <div id="box"></div>
+    <input type="text" id="str" placeholder="Type Here">
+    <script src="../dist/color-hash.js"></script>
+    <script>
+     var input = document.getElementById('str');
+     var box = document.getElementById('box');
+     var colorHash = new ColorHash();
+     input.onkeyup = function() {
+         var str = input.value;
+         var hsl = colorHash.hsl(str);
+         box.style.background = "hsl(" + [hsl[0], hsl[1] * 100 + '%', hsl[2] * 100 + '%'].join(',') + ')';
+     }
+     input.onkeyup();
+    </script>
+</body>
+

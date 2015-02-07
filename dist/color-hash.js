@@ -14,6 +14,8 @@ var BKDRHash = function(str) {
  * @class
  */
 var ColorHash = function(options) {
+    options = options || {};
+
     if(options.colors) {
         this.pool = options.colors.concat(); // copy colors
     }
@@ -50,9 +52,9 @@ ColorHash.prototype.hsl = function(str) {
 
     H = hash % 360;
     hash = parseInt(hash / 360);
-    S = hash % this.S.length;
+    S = this.S[hash % this.S.length];
     hash = parseInt(hash / this.S.length);
-    L = hash % this.L.length;
+    L = this.L[hash % this.L.length];
 
     return [H, S, L];
 };
