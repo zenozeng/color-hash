@@ -1,3 +1,15 @@
+# Color Hash
+
+Generate color based on the given string.
+
+## Status
+
+Still coding.
+
+## License
+
+MIT.
+
 ## Demo
 
 https://zenozeng.github.io/color-hash/demo/
