@@ -57,10 +57,6 @@ var HSL2RGB = function(H, S, L) {
 var ColorHash = function(options) {
     options = options || {};
 
-    if(options.colors) {
-        this.pool = options.colors.concat(); // copy colors
-    }
-
     var LS = [options.lightness, options.saturation].map(function(param) {
         param = param || [0.35, 0.5, 0.65]; // note that 3 is a prime
         return Object.prototype.toString.call(param) === '[object Array]' ? param.concat() : [param];
@@ -70,20 +66,6 @@ var ColorHash = function(options) {
     this.S = LS[1];
 
     this.hash = options.hash || BKDRHash;
-};
-
-/**
- * Returns the hash color from pool
- *
- * @param {String} str string to hash
- */
-ColorHash.prototype.fromPool = function(str) {
-    var hash = this.hash(str);
-    if(this.pool) {
-        return this.pool[hash % this.pool.length];
-    } else {
-        throw new Error('options.colors undefined');
-    }
 };
 
 /**
