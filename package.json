@@ -1,28 +1,37 @@
 {
-  "name": "color-hash",
-  "version": "0.1.0",
-  "description": "",
-  "main": "lib/color-hash.js",
-  "config": {
-    "blanket": {
-      "pattern": "lib/color-hash.js"
+    "name": "color-hash",
+    "version": "0.1.0",
+    "description": "",
+    "main": "lib/color-hash.js",
+    "config": {
+        "blanket": {
+            "pattern": "lib/color-hash.js"
+        },
+        "travis-cov": {
+            "threshold": 99,
+            "global": true,
+            "src": "lib/color-hash.js"
+        },
+        "data-cover-reporter-options": {
+            "shortnames": true
+        }
+    },
+    "scripts": {
+        "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
+        "test": "mocha && mocha --require blanket -R travis-cov && mocha --require blanket -R html-cov > test/coverage.html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zenozeng/color-hash.git"
+    },
+    "author": "Zeno Zeng",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zenozeng/color-hash/issues"
+    },
+    "devDependencies": {
+        "blanket": "^1.1.6",
+        "rewire": "^2.1.5",
+        "travis-cov": "^0.2.5"
     }
-  },
-  "scripts": {
-    "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
-    "test": "mocha && mocha --require blanket -R html-cov > test/coverage.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zenozeng/color-hash.git"
-  },
-  "author": "Zeno Zeng",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zenozeng/color-hash/issues"
-  },
-  "devDependencies": {
-    "blanket": "^1.1.6",
-    "rewire": "^2.1.5"
-  }
 }
