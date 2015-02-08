@@ -1,4 +1,9 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.ColorHash=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/**
+ * BKDR Hash
+ * @param {String} str string to hash
+ * @returns {Number}
+ */
 var BKDRHash = function(str) {
     var seed = 131;
     var hash = 0;
@@ -32,6 +37,10 @@ var ColorHash = function(options) {
     this.hash = options.hash || BKDRHash;
 };
 
+/**
+ * Returns the hash color from pool
+ * @param {String} str string to hash
+ */
 ColorHash.prototype.fromPool = function(str) {
     var hash = this.hash(str);
     if(this.pool) {
@@ -50,7 +59,7 @@ ColorHash.prototype.hsl = function(str) {
     var H, S, L;
     var hash = this.hash(str);
 
-    H = hash % 360;
+    H = hash % 359; // note that 359 is a prime
     hash = parseInt(hash / 360);
     S = this.S[hash % this.S.length];
     hash = parseInt(hash / this.S.length);

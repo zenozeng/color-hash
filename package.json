@@ -16,5 +16,7 @@
   "bugs": {
     "url": "https://github.com/zenozeng/color-hash/issues"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "rewire": "^2.1.5"
+  }
 }
