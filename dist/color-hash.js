@@ -45,7 +45,7 @@ var HSL2RGB = function(H, S, L) {
         } else {
             color = p;
         }
-        return color * 255;
+        return parseInt(color * 255);
     });
 };
 
@@ -62,7 +62,7 @@ var ColorHash = function(options) {
     }
 
     var LS = [options.lightness || 0.5, options.saturation || 0.5].map(function(param) {
-        param = Object.prototype.toString.call(param) === '[object Array]' ? param.concat() : [param];
+        return Object.prototype.toString.call(param) === '[object Array]' ? param.concat() : [param];
     });
 
     this.L = LS[0];
@@ -86,8 +86,8 @@ ColorHash.prototype.fromPool = function(str) {
 };
 
 /**
- * Returns the hash in [h, s, l]
- * note that H ∈ [0, 360); S ∈ [0, 1]; L ∈ [0, 1];
+ * Returns the hash in [h, s, l].
+ * Note that H ∈ [0, 360); S ∈ [0, 1]; L ∈ [0, 1];
  *
  * @param {String} str string to hash
  * @returns {Array} [h, s, l]
@@ -106,8 +106,8 @@ ColorHash.prototype.hsl = function(str) {
 };
 
 /**
- * Returns the hash in [r, g, b]
- * note that R, G, B ∈ [0, 255]
+ * Returns the hash in [r, g, b].
+ * Note that R, G, B ∈ [0, 255]
  *
  * @param {String} str string to hash
  * @returns {Array} [r, g, b]

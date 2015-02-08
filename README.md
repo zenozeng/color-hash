@@ -49,3 +49,7 @@ var ColorHash = require('color-hash');
 sudo npm install -g browserify
 npm run build
 ```
+
+### Follow Semantic Versioning
+
+http://semver.org/lang/zh-CN/

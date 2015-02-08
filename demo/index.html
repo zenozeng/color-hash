@@ -41,8 +41,9 @@
      var colorHash = new ColorHash();
      input.onkeyup = function() {
          var str = input.value;
-         var hsl = colorHash.hsl(str);
-         box.style.background = "hsl(" + [hsl[0], hsl[1] * 100 + '%', hsl[2] * 100 + '%'].join(',') + ')';
+         var hex = colorHash.hex(str);
+         console.log(hex);
+         box.style.background = hex;
      }
      input.onkeyup();
     </script>
