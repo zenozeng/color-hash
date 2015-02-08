@@ -1,8 +1,27 @@
-var rewire = require("rewire");
-var ColorHash = rewire('../lib/color-hash');
+var ColorHash = require('../lib/color-hash');
+var assert = require('assert');
 
-var BKDRHash = ColorHash.__get__('BKDRHash');
+describe('ColorHash', function() {
 
-["s", "ssss"].forEach(function(str) {
-    BKDRHash(str);
+    describe('#HSL', function() {
+        it('should return hash in HSL', function() {
+            var colorHash = new ColorHash();
+            assert.deepEqual(colorHash.hsl(''), [0, 0.5, 0.5]);
+        });
+    });
+
+    describe('#RGB', function() {
+        it('should return the hash in rgb', function() {
+            var colorHash = new ColorHash();
+            assert.deepEqual(colorHash.rgb(''), [191, 64, 64]);
+        });
+    });
+
+    describe('#HEX', function() {
+        it('should return the hash in hex', function() {
+            var colorHash = new ColorHash();
+            assert.equal(colorHash.hex(''), '#bf4040');
+        });
+    });
+
 });

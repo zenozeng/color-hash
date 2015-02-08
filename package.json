@@ -18,7 +18,7 @@
     },
     "scripts": {
         "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
-        "test": "mocha && mocha --require blanket -R travis-cov && mocha --require blanket -R html-cov > test/coverage.html"
+        "test": "mocha && mocha --require blanket -R html-cov > test/coverage.html && xdg-open test/coverage.html && mocha --require blanket -R travis-cov"
     },
     "repository": {
         "type": "git",
