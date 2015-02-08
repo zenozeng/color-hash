@@ -43,6 +43,13 @@ var ColorHash = require('color-hash');
 
 ## Dev
 
+### Test
+
+```bash
+sudo npm install -g mocha
+npm test
+```
+
 ### Build browser js
 
 ```bash

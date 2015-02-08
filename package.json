@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "description": "",
   "main": "lib/color-hash.js",
+  "config": {
+    "blanket": {
+      "pattern": "lib/color-hash.js"
+    }
+  },
   "scripts": {
     "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require blanket"
   },
   "repository": {
     "type": "git",
@@ -17,6 +22,7 @@
     "url": "https://github.com/zenozeng/color-hash/issues"
   },
   "devDependencies": {
+    "blanket": "^1.1.6",
     "rewire": "^2.1.5"
   }
 }
