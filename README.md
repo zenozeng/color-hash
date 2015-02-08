@@ -20,6 +20,9 @@ https://zenozeng.github.io/color-hash/demo/
 
 A UMD version of ColorHash was located in dist/.
 
+Note that Array.prototype.map was used in color-hash,
+a pollfill must be provided if you want to use it in IE8.
+
 ### Node.JS
 
 ```bash

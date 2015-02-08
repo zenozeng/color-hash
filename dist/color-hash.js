@@ -1,6 +1,7 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.ColorHash=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * BKDR Hash
+ *
  * @param {String} str string to hash
  * @returns {Number}
  */
@@ -11,6 +12,41 @@ var BKDRHash = function(str) {
         hash = hash * seed + str.charCodeAt(i);
     }
     return hash;
+};
+
+/**
+ * Convert HSL to RGB
+ *
+ * @see {@link http://zh.wikipedia.org/wiki/HSL和HSV色彩空间} for further information.
+ * @param {Number} H Hue ∈ [0, 360)
+ * @param {Number} S Saturation ∈ [0, 1]
+ * @param {Number} L Lightness ∈ [0, 1]
+ * @returns {Array} R, G, B ∈ [0, 255]
+ */
+var HSL2RGB = function(H, S, L) {
+    H /= 360;
+
+    var q = L < 0.5 ? L * (1 + S) : L + S - L * S;
+    var p = 2 * L - q;
+
+    return [H + 1/3, H, H - 1/3].map(function(color) {
+        if(color < 0) {
+            color++;
+        }
+        if(color > 1) {
+            color--;
+        }
+        if(color < 1/6) {
+            color = p + (q - p) * 6 * color;
+        } else if(color < 0.5) {
+            color = q;
+        } else if(color < 2/3) {
+            color = p + (q - p) * 6 * (2/3 - color);
+        } else {
+            color = p;
+        }
+        return color * 255;
+    });
 };
 
 /**
@@ -25,20 +61,19 @@ var ColorHash = function(options) {
         this.pool = options.colors.concat(); // copy colors
     }
 
-    var isArray = function(obj) {
-        return Object.prototype.toString.call(obj) === '[object Array]';
-    };
+    var LS = [options.lightness || 0.5, options.saturation || 0.5].map(function(param) {
+        param = Object.prototype.toString.call(param) === '[object Array]' ? param.concat() : [param];
+    });
 
-    this.L = options.lightness || 0.5;
-    this.S = options.saturation || 0.5;
-    this.L = isArray(this.L) ? this.L.concat() : [this.L];
-    this.S = isArray(this.S) ? this.S.concat() : [this.S];
+    this.L = LS[0];
+    this.S = LS[1];
 
     this.hash = options.hash || BKDRHash;
 };
 
 /**
  * Returns the hash color from pool
+ *
  * @param {String} str string to hash
  */
 ColorHash.prototype.fromPool = function(str) {
@@ -52,6 +87,8 @@ ColorHash.prototype.fromPool = function(str) {
 
 /**
  * Returns the hash in [h, s, l]
+ * note that H ∈ [0, 360); S ∈ [0, 1]; L ∈ [0, 1];
+ *
  * @param {String} str string to hash
  * @returns {Array} [h, s, l]
  */
@@ -70,18 +107,19 @@ ColorHash.prototype.hsl = function(str) {
 
 /**
  * Returns the hash in [r, g, b]
+ * note that R, G, B ∈ [0, 255]
+ *
  * @param {String} str string to hash
  * @returns {Array} [r, g, b]
  */
 ColorHash.prototype.rgb = function(str) {
     var hsl = this.hsl(str);
-    // TODO: convert hsl to rgb
-    var rgb;
-    return rgb;
+    return HSL2RGB.apply(this, hsl);
 };
 
 /**
  * Returns the hash in hex
+ *
  * @param {String} str string to hash
  * @returns {String} hex with #
  */
