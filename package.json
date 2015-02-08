@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
-    "test": "mocha --require blanket"
+    "test": "mocha && mocha --require blanket -R html-cov > test/coverage.html"
   },
   "repository": {
     "type": "git",

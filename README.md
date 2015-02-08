@@ -50,6 +50,10 @@ sudo npm install -g mocha
 npm test
 ```
 
+#### Coverage Report
+
+https://zenozeng.github.io/color-hash/test/coverage.html
+
 ### Build browser js
 
 ```bash
