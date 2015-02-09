@@ -2,14 +2,6 @@
 
 Generate color based on the given string.
 
-## Status
-
-Still coding.
-
-## License
-
-MIT.
-
 ## Demo
 
 https://zenozeng.github.io/color-hash/demo/
@@ -17,6 +9,10 @@ https://zenozeng.github.io/color-hash/demo/
 ## Usage
 
 ### Browser
+
+```bash
+bower install color-hash
+```
 
 A UMD version of ColorHash was located in dist/.
 
@@ -32,6 +28,10 @@ npm install color-hash --save
 ```javascript
 var ColorHash = require('color-hash');
 ```
+
+## License
+
+MIT.
 
 ## FAQ
 
