@@ -11,9 +11,6 @@
             "threshold": 99,
             "global": true,
             "src": "lib/color-hash.js"
-        },
-        "data-cover-reporter-options": {
-            "shortnames": true
         }
     },
     "scripts": {
