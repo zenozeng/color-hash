@@ -86,11 +86,23 @@ MIT.
 
 ## FAQ
 
+### How does it work?
+
+Use the hash function (default is BKDRHash) to calculate the hash of the given string,
+
+```
+Hue = hash % 359. (Note that 359 is a prime)
+Saturation = SaturationArray[hash / 360 % SaturationArray.length]
+Lightness = LightnessArray[hash / 360 / Saturation.length % LightnessArray.length]
+
+By default,
+SaturationArray = LightnessArray = [0.35, 0.5, 0.65]
+```
+
 ### Why not LAB?
 
-虽然 LAB 的色彩分布对人眼要更加线性一些，但是色域要更大，转换过程要更加复杂。
-考虑的一个关键点在于，HSL 色彩空间可以很方便地控制参数，
-比如亮度和饱和度，这样生成出来的颜色都是一个比较均匀和谐的分布。
+Though LAB is more perceptually uniform, HSL is easier to control.
+Simply sets lightness and saturation and change hue uniformly can generate uniform colors.
 
 ## Dev
 
