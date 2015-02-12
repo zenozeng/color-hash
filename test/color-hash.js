@@ -7,6 +7,8 @@ describe('ColorHash', function() {
         it('should return hash color in HSL', function() {
             var colorHash = new ColorHash();
             assert.deepEqual(colorHash.hsl(''), [0, 0.35, 0.35]);
+            assert.deepEqual(colorHash.hsl('hkl'),
+                             [colorHash.hash('hkl') % 359, 0.5, 0.35]);
         });
     });
 
