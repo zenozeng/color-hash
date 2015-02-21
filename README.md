@@ -110,6 +110,7 @@ Simply sets lightness and saturation and change hue uniformly can generate unifo
 
 ```bash
 sudo npm install -g mocha
+sudo npm install -g istanbul
 npm test
 ```
 

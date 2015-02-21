@@ -1,21 +1,11 @@
 {
     "name": "color-hash",
-    "version": "0.1.1",
-    "description": "",
+    "version": "0.1.2",
+    "description": "Generate color based on the given string (using HSL color space and BKDRHash).",
     "main": "lib/color-hash.js",
-    "config": {
-        "blanket": {
-            "pattern": "lib/"
-        },
-        "travis-cov": {
-            "threshold": 99,
-            "global": true,
-            "src": "lib/"
-        }
-    },
     "scripts": {
         "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
-        "test": "mocha && mocha --require blanket -R html-cov > test/coverage.html && xdg-open test/coverage.html && mocha --require blanket -R travis-cov"
+        "test": "istanbul cover _mocha"
     },
     "repository": {
         "type": "git",
@@ -27,8 +17,6 @@
         "url": "https://github.com/zenozeng/color-hash/issues"
     },
     "devDependencies": {
-        "blanket": "^1.1.6",
-        "rewire": "^2.1.5",
-        "travis-cov": "^0.2.5"
+        "rewire": "^2.1.5"
     }
 }
