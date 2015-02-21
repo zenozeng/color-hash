@@ -116,9 +116,7 @@ npm test
 
 #### Coverage Report
 
-100% coverage 47 SLOC
-
-https://zenozeng.github.io/color-hash/test/coverage.html
+https://zenozeng.github.io/color-hash/coverage/lcov-report/lib/index.html
 
 ### Build browser js
 
