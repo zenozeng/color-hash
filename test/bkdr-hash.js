@@ -1,6 +1,4 @@
-var rewire = require('rewire');
-var ColorHash = rewire('../lib/color-hash');
-var BKDRHash = ColorHash.__get__('BKDRHash');
+var BKDRHash = require('../lib/bkdr-hash.js');
 var assert = require('assert');
 
 describe('BKDRHash', function() {
