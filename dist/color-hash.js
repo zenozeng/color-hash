@@ -8,11 +8,20 @@
 var BKDRHash = function(str) {
     var seed = 131;
     var hash = 0;
+    var MAX_SAFE_INTEGER = parseInt(9007199254740991 / seed / seed); // Number.MAX_SAFE_INTEGER equals  9007199254740991
     for(var i = 0; i < str.length; i++) {
+        if(hash > MAX_SAFE_INTEGER) {
+            hash = parseInt(hash / seed);
+        }
         hash = hash * seed + str.charCodeAt(i);
     }
     return hash;
 };
+
+module.exports = BKDRHash;
+
+},{}],2:[function(require,module,exports){
+var BKDRHash = require('./bkdr-hash');
 
 /**
  * Convert HSL to RGB
@@ -113,5 +122,5 @@ ColorHash.prototype.hex = function(str) {
 
 module.exports = ColorHash;
 
-},{}]},{},[1])(1)
+},{"./bkdr-hash":1}]},{},[2])(2)
 });
