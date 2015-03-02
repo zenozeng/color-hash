@@ -1,6 +1,6 @@
 {
     "name": "color-hash",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Generate color based on the given string (using HSL color space and BKDRHash).",
     "main": "lib/color-hash.js",
     "scripts": {
