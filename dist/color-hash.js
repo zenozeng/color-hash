@@ -9,6 +9,7 @@ var BKDRHash = function(str) {
     var seed = 131;
     var seed2 = 137;
     var hash = 0;
+    // make hash more sensitive for short string like 'a', 'b', 'c'
     str += 'x';
     // Note: Number.MAX_SAFE_INTEGER equals 9007199254740991
     var MAX_SAFE_INTEGER = parseInt(9007199254740991 / seed2);
