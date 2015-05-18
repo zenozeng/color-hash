@@ -21,6 +21,6 @@ describe('RGB2HEX', function() {
          assert.equal(RGB2HEX([255, 64, 0]), '#ff4000');
     });
     it('should return 6 digits hex for even small rgb values', function() {
-        assert.equal(RGB2HEX([0, 1, 2]), '#000102');
+        assert.equal(RGB2HEX([1, 15, 16]), '#010f10');
     });
 });
