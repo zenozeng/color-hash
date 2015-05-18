@@ -28,6 +28,23 @@ module.exports = BKDRHash;
 var BKDRHash = require('./bkdr-hash');
 
 /**
+ * Convert RGB Array to HEX
+ *
+ * @param {Array} RGBArray - [R, G, B]
+ * @returns {String} 6 digits hex starting with #
+ */
+var RGB2HEX = function(RGBArray) {
+    var hex = '#';
+    RGBArray.forEach(function(value) {
+        if (value < 16) {
+            hex += 0;
+        }
+        hex += value.toString(16);
+    });
+    return hex;
+};
+
+/**
  * Convert HSL to RGB
  *
  * @see {@link http://zh.wikipedia.org/wiki/HSL和HSV色彩空间} for further information.
@@ -121,7 +138,7 @@ ColorHash.prototype.rgb = function(str) {
  */
 ColorHash.prototype.hex = function(str) {
     var rgb = this.rgb(str);
-    return '#' + rgb[0].toString(16) + rgb[1].toString(16) + rgb[2].toString(16);
+    return RGB2HEX(rgb);
 };
 
 module.exports = ColorHash;
