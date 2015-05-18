@@ -1,6 +1,7 @@
 var rewire = require('rewire');
 var ColorHash = rewire('../lib/color-hash');
 var HSL2RGB = ColorHash.__get__('HSL2RGB');
+var RGB2HEX = ColorHash.__get__('RGB2HEX');
 var assert = require('assert');
 
 describe('HSL2RGB', function() {
@@ -12,5 +13,14 @@ describe('HSL2RGB', function() {
 
         // test example generated using gpick
         assert.deepEqual(HSL2RGB(330, 1, 0.75), [255, 128, 191]);
+    });
+});
+
+describe('RGB2HEX', function() {
+    it('should return hex for rgb', function() {
+         assert.equal(RGB2HEX([255, 64, 0]), '#ff4000');
+    });
+    it('should return 6 digits hex for even small rgb values', function() {
+        assert.equal(RGB2HEX([0, 1, 2]), '#000102');
     });
 });
