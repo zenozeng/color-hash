@@ -25,13 +25,13 @@ a pollfill must be provided if you want to use it in IE8.
 var colorHash = new ColorHash();
 
 // in HSL, Hue ∈ [0, 360), Saturation ∈ [0, 1], Lightness ∈ [0, 1]
-colorHash.hsl('Hello World'); // [ 235, 0.65, 0.35 ]
+colorHash.hsl('Hello World'); // [ 225, 0.65, 0.35 ]
 
 // in RGB, R, G, B ∈ [0, 255]
-colorHash.rgb('Hello World'); // [ 31, 41, 147 ]
+colorHash.rgb('Hello World'); // [ 135, 150, 197 ]
 
 // in HEX
-colorHash.hex('Hello World'); // '#1f2993'
+colorHash.hex('Hello World'); // '#8796c5'
 ```
 
 #### Custom Hash Function
