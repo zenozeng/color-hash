@@ -41,8 +41,29 @@ describe('ColorHash', function() {
                         return hsl[0];
                     });
                 }
-
             }
+        });
+
+        it('should have default value for minH if only maxH is set', function() {
+            assertHueWithinRange(0, 10, function(s) {
+                var colorHash = new ColorHash({
+                    maxH: 10,
+                    hash: stringHash // This hash function spreads its results more
+                });
+                var hsl = colorHash.hsl(s);
+                return hsl[0];
+            });
+        });
+
+        it('should have default value for maxH if only minH is set', function() {
+            assertHueWithinRange(350, 360, function(s) {
+                var colorHash = new ColorHash({
+                    minH: 350,
+                    hash: stringHash // This hash function spreads its results more
+                });
+                var hsl = colorHash.hsl(s);
+                return hsl[0];
+            });
         });
     });
 
