@@ -5,7 +5,16 @@ var stringHash = require('string-hash');
 var HSL2RGB = ColorHash.__get__('HSL2RGB');
 var RGB2HEX = ColorHash.__get__('RGB2HEX');
 
-function assertHueWithinRange(minH, maxH, hueOf) {
+function assertHueWithinRange(minH, maxH, options) {
+    options = options || {}
+    options.hash = stringHash // This hash function spreads its results more
+
+    function hueOf(s) {
+        var colorHash = new ColorHash(options);
+        var hsl = colorHash.hsl(s);
+        return hsl[0];
+    }
+
     var min = 1000;
     var max = -1000;
     var hue;
@@ -22,7 +31,9 @@ function assertHueWithinRange(minH, maxH, hueOf) {
 describe('ColorHash', function() {
 
     describe('#Hue', function() {
-        it('should return the hash color based on default hue');
+        it('should return the hash color based on default hue', function() {
+            assertHueWithinRange(0, 358); // hash % 359 means maximum 358
+        });
 
         it('should return the hash color based on the given hue');
 
@@ -31,39 +42,20 @@ describe('ColorHash', function() {
         it('should return the hash color based on the given hue {min, max}', function() {
             for (var minH = 0; minH < 361; minH += 60) {
                 for (var maxH = minH + 1; maxH < 361; maxH += 60) {
-                    assertHueWithinRange(minH, maxH, function(s) {
-                        var colorHash = new ColorHash({
-                            minH: minH,
-                            maxH: maxH,
-                            hash: stringHash // This hash function spreads its results more
-                        });
-                        var hsl = colorHash.hsl(s);
-                        return hsl[0];
+                    assertHueWithinRange(minH, maxH, {
+                        minH: minH,
+                        maxH: maxH
                     });
                 }
             }
         });
 
         it('should have default value for minH if only maxH is set', function() {
-            assertHueWithinRange(0, 10, function(s) {
-                var colorHash = new ColorHash({
-                    maxH: 10,
-                    hash: stringHash // This hash function spreads its results more
-                });
-                var hsl = colorHash.hsl(s);
-                return hsl[0];
-            });
+            assertHueWithinRange(0, 10, {maxH: 10});
         });
 
         it('should have default value for maxH if only minH is set', function() {
-            assertHueWithinRange(350, 360, function(s) {
-                var colorHash = new ColorHash({
-                    minH: 350,
-                    hash: stringHash // This hash function spreads its results more
-                });
-                var hsl = colorHash.hsl(s);
-                return hsl[0];
-            });
+            assertHueWithinRange(350, 360, {minH: 350});
         });
     });
 
