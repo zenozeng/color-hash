@@ -35,7 +35,9 @@ describe('ColorHash', function() {
             assertHueWithinRange(0, 358); // hash % 359 means maximum 358
         });
 
-        it('should return the hash color based on the given hue');
+        it('should return the hash color based on same minH, maxH', function() {
+            assertHueWithinRange(10, 10, {minH: 10, maxH: 10})
+        });
 
         it('should return the hash color based on the given hue array');
 
