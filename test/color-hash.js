@@ -5,7 +5,7 @@ var stringHash = require('string-hash');
 var HSL2RGB = ColorHash.__get__('HSL2RGB');
 var RGB2HEX = ColorHash.__get__('RGB2HEX');
 
-function assertHueWithinRange(minH, maxH, options) {
+function assertHueWithinRange(min, max, options) {
     options = options || {};
     options.hash = stringHash; // This hash function spreads its results more
 
@@ -15,18 +15,18 @@ function assertHueWithinRange(minH, maxH, options) {
         return hsl[0];
     }
 
-    var min = 1000;
-    var max = -1000;
-    var iterations = 10*(maxH-minH+1);
+    var minSeen = 1000;
+    var maxSeen = -1000;
+    var iterations = 10*(max-min+1);
     var hue;
     for (var i = 0; i < iterations; i++) {
         hue = hueOf('This is some padding, and then a counter: ' + i);
-        min = Math.min(min, hue);
-        max = Math.max(max, hue);
-        assert.ok(hue >= 0 || hue < 360, '{minH: ' + minH + ', maxH: ' + maxH + '} hue=' + hue + ' is outside parameters');
+        minSeen = Math.min(minSeen, hue);
+        maxSeen = Math.max(maxSeen, hue);
+        assert.ok(hue >= 0 || hue < 360, '{min: ' + min + ', max: ' + max + '} hue=' + hue + ' is outside parameters');
     }
-    assert.equal(Math.round(min), minH, '{minH: ' + minH + ', maxH: ' + maxH + '} actual min=' + min);
-    assert.equal(Math.round(max), maxH, '{minH: ' + minH + ', maxH: ' + maxH + '} actual max=' + max);
+    assert.equal(Math.round(minSeen), min, '{min: ' + min + ', max: ' + max + '} actual minSeen=' + minSeen);
+    assert.equal(Math.round(maxSeen), max, '{min: ' + min + ', max: ' + max + '} actual maxSeen=' + maxSeen);
 }
 
 describe('ColorHash', function() {
@@ -36,27 +36,33 @@ describe('ColorHash', function() {
             assertHueWithinRange(0, 358); // hash % 359 means maximum 358
         });
 
-        it('should return the hash color based on same minH, maxH', function() {
-            assertHueWithinRange(10, 10, {minH: 10, maxH: 10});
+        it('should return the hash color based on numeric hue', function() {
+            assertHueWithinRange(10, 10, {hue: 10});
+        });
+
+        it('should return the hash color based on same min, max', function() {
+            assertHueWithinRange(10, 10, {hue: {min: 10, max: 10}});
         });
 
         it('should return the hash color based on the given hue {min, max}', function() {
-            for (var minH = 0; minH < 361; minH += 60) {
-                for (var maxH = minH + 1; maxH < 361; maxH += 60) {
-                    assertHueWithinRange(minH, maxH, {
-                        minH: minH,
-                        maxH: maxH
+            for (var min = 0; min < 361; min += 60) {
+                for (var max = min + 1; max < 361; max += 60) {
+                    assertHueWithinRange(min, max, {
+                        hue: {
+                            min: min,
+                            max: max
+                        }
                     });
                 }
             }
         });
 
-        it('should have default value for minH if only maxH is set', function() {
-            assertHueWithinRange(0, 10, {maxH: 10});
+        it('should have default value for min if only max is set', function() {
+            assertHueWithinRange(0, 10, {hue: {max: 10}});
         });
 
-        it('should have default value for maxH if only minH is set', function() {
-            assertHueWithinRange(350, 360, {minH: 350});
+        it('should have default value for max if only min is set', function() {
+            assertHueWithinRange(350, 360, {hue: {min: 350}});
         });
     });
 
