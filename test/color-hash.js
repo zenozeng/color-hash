@@ -6,8 +6,8 @@ var HSL2RGB = ColorHash.__get__('HSL2RGB');
 var RGB2HEX = ColorHash.__get__('RGB2HEX');
 
 function assertHueWithinRange(minH, maxH, options) {
-    options = options || {}
-    options.hash = stringHash // This hash function spreads its results more
+    options = options || {};
+    options.hash = stringHash; // This hash function spreads its results more
 
     function hueOf(s) {
         var colorHash = new ColorHash(options);
@@ -17,8 +17,9 @@ function assertHueWithinRange(minH, maxH, options) {
 
     var min = 1000;
     var max = -1000;
+    var iterations = 10*(maxH-minH+1);
     var hue;
-    for (var i = 0; i < 10000; i++) {
+    for (var i = 0; i < iterations; i++) {
         hue = hueOf('This is some padding, and then a counter: ' + i);
         min = Math.min(min, hue);
         max = Math.max(max, hue);
@@ -36,10 +37,8 @@ describe('ColorHash', function() {
         });
 
         it('should return the hash color based on same minH, maxH', function() {
-            assertHueWithinRange(10, 10, {minH: 10, maxH: 10})
+            assertHueWithinRange(10, 10, {minH: 10, maxH: 10});
         });
-
-        it('should return the hash color based on the given hue array');
 
         it('should return the hash color based on the given hue {min, max}', function() {
             for (var minH = 0; minH < 361; minH += 60) {

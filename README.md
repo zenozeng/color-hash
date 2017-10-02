@@ -53,15 +53,7 @@ colorHash.hex('Hello World!');
 #### Custom Hue
 
 ```javascript
-var colorHash = new ColorHash({hue: 180});
-```
-
-```javascript
-var colorHash = new ColorHash({hue: [30, 60, 90, 330]});
-```
-
-```javascript
-var colorHash = new ColorHash({hue: {min: 30, max: 90}});
+var colorHash = new ColorHash({minH: 30, maxH: 90});
 ```
 
 #### Custom Lightness
