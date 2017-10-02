@@ -14,10 +14,10 @@ https://zenozeng.github.io/color-hash/demo/
 bower install color-hash
 ```
 
-A UMD version of ColorHash was located in dist/.
+A UMD version of ColorHash is located in `dist/`.
 
-Note that Array.prototype.map was used in color-hash,
-a pollfill must be provided if you want to use it in IE8.
+Note that `Array.prototype.map` is used in `color-hash`,
+a polyfill must be provided if you want to use it in IE8.
 
 #### Basic
 
@@ -70,7 +70,7 @@ var colorHash = new ColorHash({saturation: 0.5});
 var colorHash = new ColorHash({saturation: [0.35, 0.5, 0.65]});
 ```
 
-### Node.JS
+### Node.js
 
 ```bash
 npm install color-hash --save
@@ -88,7 +88,7 @@ MIT.
 
 ### How does it work?
 
-Use the hash function (default is BKDRHash) to calculate the hash of the given string,
+It uses the `hash` function (default is BKDRHash) to calculate the hash of the given string.
 
 ```
 Hue = hash % 359. (Note that 359 is a prime)
@@ -109,8 +109,7 @@ Simply sets lightness and saturation and change hue uniformly can generate unifo
 ### Test
 
 ```bash
-sudo npm install -g mocha
-sudo npm install -g istanbul
+npm install
 npm test
 ```
 
@@ -121,7 +120,7 @@ https://zenozeng.github.io/color-hash/coverage/lcov-report/lib/index.html
 ### Build browser js
 
 ```bash
-sudo npm install -g browserify
+npm install
 npm run build
 ```
 

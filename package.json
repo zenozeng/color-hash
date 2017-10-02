@@ -17,6 +17,9 @@
         "url": "https://github.com/zenozeng/color-hash/issues"
     },
     "devDependencies": {
+        "browserify": "^14.4.0",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.3",
         "rewire": "^2.1.5"
     }
 }
