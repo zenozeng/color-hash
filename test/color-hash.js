@@ -1,10 +1,50 @@
 var assert = require('assert');
 var rewire = require('rewire');
 var ColorHash = rewire('../lib/color-hash');
+var stringHash = require('string-hash');
 var HSL2RGB = ColorHash.__get__('HSL2RGB');
 var RGB2HEX = ColorHash.__get__('RGB2HEX');
 
+function assertHueWithinRange(minH, maxH, hueOf) {
+    var min = 1000;
+    var max = -1000;
+    var hue;
+    for (var i = 0; i < 10000; i++) {
+        hue = hueOf('This is some padding, and then a counter: ' + i);
+        min = Math.min(min, hue);
+        max = Math.max(max, hue);
+        assert.ok(hue >= 0 || hue < 360, '{minH: ' + minH + ', maxH: ' + maxH + '} hue=' + hue + ' is outside parameters');
+    }
+    assert.equal(Math.round(min), minH, '{minH: ' + minH + ', maxH: ' + maxH + '} actual min=' + min);
+    assert.equal(Math.round(max), maxH, '{minH: ' + minH + ', maxH: ' + maxH + '} actual max=' + max);
+}
+
 describe('ColorHash', function() {
+
+    describe('#Hue', function() {
+        it('should return the hash color based on default hue');
+
+        it('should return the hash color based on the given hue');
+
+        it('should return the hash color based on the given hue array');
+
+        it('should return the hash color based on the given hue {min, max}', function() {
+            for (var minH = 0; minH < 361; minH += 60) {
+                for (var maxH = minH + 1; maxH < 361; maxH += 60) {
+                    assertHueWithinRange(minH, maxH, function(s) {
+                        var colorHash = new ColorHash({
+                            minH: minH,
+                            maxH: maxH,
+                            hash: stringHash // This hash function spreads its results more
+                        });
+                        var hsl = colorHash.hsl(s);
+                        return hsl[0];
+                    });
+                }
+
+            }
+        });
+    });
 
     describe('#Lightness & Saturation', function() {
 
