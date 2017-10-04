@@ -60,6 +60,10 @@ var colorHash = new ColorHash({hue: 90});
 var colorHash = new ColorHash({hue: {min: 90, max: 270}});
 ```
 
+```javascript
+var colorHash = new ColorHash({hue: [ {min: 30, max: 90}, {min: 180, max: 210}, {min: 270, max: 285} ]});
+```
+
 #### Custom Lightness
 
 ```javascript

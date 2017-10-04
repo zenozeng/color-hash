@@ -79,6 +79,10 @@ var HSL2RGB = function(H, S, L) {
     });
 };
 
+function isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+}
+
 /**
  * Color Hash Class
  *
@@ -89,22 +93,27 @@ var ColorHash = function(options) {
 
     var LS = [options.lightness, options.saturation].map(function(param) {
         param = param || [0.35, 0.5, 0.65]; // note that 3 is a prime
-        return Object.prototype.toString.call(param) === '[object Array]' ? param.concat() : [param];
+        return isArray(param) ? param.concat() : [param];
     });
 
     this.L = LS[0];
     this.S = LS[1];
 
     if (typeof options.hue === 'number') {
-        this.minH = this.maxH = options.hue;
-    } else {
-        this.minH = options.hue && options.hue.min;
-        this.maxH = options.hue && options.hue.max;
-        if (typeof this.minH === 'undefined' && typeof this.maxH !== 'undefined')
-            this.minH = 0;
-        if (typeof this.minH !== 'undefined' && typeof this.maxH === 'undefined')
-            this.maxH = 360;
+        options.hue = {min: options.hue, max: options.hue};
     }
+    if (typeof options.hue === 'object' && !isArray(options.hue)) {
+        options.hue = [options.hue];
+    }
+    if (typeof options.hue === 'undefined') {
+        options.hue = [];
+    }
+    this.hueRanges = options.hue.map(function (range) {
+        return {
+            min: typeof range.min === 'undefined' ? 0 : range.min,
+            max: typeof range.max === 'undefined' ? 360: range.max
+        };
+    });
 
     this.hash = options.hash || BKDRHash;
 };
@@ -120,9 +129,10 @@ ColorHash.prototype.hsl = function(str) {
     var H, S, L;
     var hash = this.hash(str);
 
-    if (typeof this.minH !== 'undefined' && typeof this.maxH !== 'undefined'){
+    if (this.hueRanges.length) {
+        var range = this.hueRanges[hash % this.hueRanges.length];
         var hueResolution = 727; // note that 727 is a prime
-        H = (hash % hueResolution) * (this.maxH - this.minH) / hueResolution + this.minH;
+        H = ((hash / this.hueRanges.length) % hueResolution) * (range.max - range.min) / hueResolution + range.min;
     } else {
         H = hash % 359; // note that 359 is a prime
     }
