@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.ColorHash=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ColorHash = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * BKDR Hash (modified version)
  *
@@ -79,6 +79,10 @@ var HSL2RGB = function(H, S, L) {
     });
 };
 
+function isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+}
+
 /**
  * Color Hash Class
  *
@@ -89,11 +93,27 @@ var ColorHash = function(options) {
 
     var LS = [options.lightness, options.saturation].map(function(param) {
         param = param || [0.35, 0.5, 0.65]; // note that 3 is a prime
-        return Object.prototype.toString.call(param) === '[object Array]' ? param.concat() : [param];
+        return isArray(param) ? param.concat() : [param];
     });
 
     this.L = LS[0];
     this.S = LS[1];
+
+    if (typeof options.hue === 'number') {
+        options.hue = {min: options.hue, max: options.hue};
+    }
+    if (typeof options.hue === 'object' && !isArray(options.hue)) {
+        options.hue = [options.hue];
+    }
+    if (typeof options.hue === 'undefined') {
+        options.hue = [];
+    }
+    this.hueRanges = options.hue.map(function (range) {
+        return {
+            min: typeof range.min === 'undefined' ? 0 : range.min,
+            max: typeof range.max === 'undefined' ? 360: range.max
+        };
+    });
 
     this.hash = options.hash || BKDRHash;
 };
@@ -109,7 +129,13 @@ ColorHash.prototype.hsl = function(str) {
     var H, S, L;
     var hash = this.hash(str);
 
-    H = hash % 359; // note that 359 is a prime
+    if (this.hueRanges.length) {
+        var range = this.hueRanges[hash % this.hueRanges.length];
+        var hueResolution = 727; // note that 727 is a prime
+        H = ((hash / this.hueRanges.length) % hueResolution) * (range.max - range.min) / hueResolution + range.min;
+    } else {
+        H = hash % 359; // note that 359 is a prime
+    }
     hash = parseInt(hash / 360);
     S = this.S[hash % this.S.length];
     hash = parseInt(hash / this.S.length);
