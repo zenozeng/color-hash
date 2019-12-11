@@ -1,24 +1,20 @@
 import stringHash from "string-hash";
-import ColorHash from "../color-hash";
+import ColorHash, { options, testFroHSL2RGB, testForRGB2HEX } from "../color-hash";
 
-function assertHueWithinRange(options, expectedRange) {
+function assertHueWithinRange(options: options, expectedRange: { min: number; max: number; }) {
   return assertHueWithinRanges(options, [expectedRange]);
 }
 
-function assertHueWithinRanges(options, ranges) {
-  options = options || {};
-  if (typeof ranges === "undefined" || !ranges.length || !ranges[0]) {
-    ranges = [{}];
-  }
+function assertHueWithinRanges(options: options, rangesA: { min: number; max: number; }[]) {
   options.hash = stringHash; // This hash function spreads its results more
 
-  function hueOf(s) {
+  function hueOf(s: string) {
     var colorHash = new ColorHash(options);
     var hsl = colorHash.hsl(s);
     return hsl[0];
   }
 
-  ranges = ranges.map(function(range) {
+  const ranges = rangesA.map((range) => {
     return {
       min: range.min,
       max: range.max,
@@ -28,78 +24,51 @@ function assertHueWithinRanges(options, ranges) {
     };
   });
 
-  var totalSize = ranges.reduce(function(sum, range) {
+  const totalSize = ranges.reduce((sum, range) => {
     return sum + range.size;
   }, 0);
 
-  var iterations = 10 * (totalSize + 1);
-  var hue;
-  for (var i = 0; i < iterations; i++) {
+  const iterations = 10 * (totalSize + 1);
+  var hue: number;
+  for (let i = 0; i < iterations; i++) {
     hue = hueOf("This is some padding, and then a counter: " + i);
-    assert.ok(
-      hue >= 0 || hue < 360,
-      JSON.stringify(ranges, null, 2) + " hue=" + hue + " is outside parameters"
-    );
-    var withinAtLeastOneRange = ranges.reduce(function(
+    expect(hue >= 0 || hue < 360).toBe(true)
+    const withinAtLeastOneRange = ranges.reduce((
       withinAnyRangeYet,
       range
-    ) {
-      var withinThisRange = hue >= range.min && hue <= range.max;
+    ) => {
+      const withinThisRange = hue >= range.min && hue <= range.max;
       if (withinThisRange) {
         range.minSeen = Math.min(range.minSeen, hue);
         range.maxSeen = Math.max(range.maxSeen, hue);
       }
       return withinAnyRangeYet || withinThisRange;
     },
-    false);
-    assert.ok(
-      withinAtLeastOneRange,
-      JSON.stringify(ranges, null, 2) +
-        " hue=" +
-        hue +
-        " is not within any range."
-    );
+      false);
+    expect(withinAtLeastOneRange).toBe(true)
   }
-  ranges.forEach(function(range) {
-    assert.equal(
-      Math.round(range.minSeen),
-      range.min,
-      "{min: " +
-        range.min +
-        ", max: " +
-        range.max +
-        "} actual minSeen=" +
-        range.minSeen
-    );
-    assert.equal(
-      Math.round(range.maxSeen),
-      range.max,
-      "{min: " +
-        range.min +
-        ", max: " +
-        range.max +
-        "} actual maxSeen=" +
-        range.maxSeen
-    );
+  ranges.forEach((range) => {
+    expect(Math.round(range.minSeen)).toBe(range.min)
+    expect(Math.round(range.maxSeen)).toBe(range.max)
   });
 }
 
-describe("ColorHash", function() {
-  describe("#Hue", function() {
-    it("should return the hash color based on default hue", function() {
-      assertHueWithinRange(undefined, { min: 0, max: 358 }); // hash % 359 means maximum 358
+describe("ColorHash", () => {
+  describe("#Hue", () => {
+    it("should return the hash color based on default hue", () => {
+      assertHueWithinRange({}, { min: 0, max: 358 }); // hash % 359 means maximum 358
     });
 
-    it("should return the hash color based on numeric hue", function() {
+    it("should return the hash color based on numeric hue", () => {
       assertHueWithinRange({ hue: 10 }, { min: 10, max: 10 });
     });
 
-    it("should return the hash color based on same min, max", function() {
+    it("should return the hash color based on same min, max", () => {
       var range = { min: 10, max: 10 };
       assertHueWithinRange({ hue: range }, range);
     });
 
-    it("should return the hash color based on the given hue {min, max}", function() {
+    it("should return the hash color based on the given hue {min, max}", () => {
       var min, max, range;
       for (min = 0; min < 361; min += 60) {
         for (max = min + 1; max < 361; max += 60) {
@@ -109,15 +78,15 @@ describe("ColorHash", function() {
       }
     });
 
-    it("should have default value for min if only max is set", function() {
-      assertHueWithinRange({ hue: { max: 10 } }, { min: 0, max: 10 });
-    });
+    // it("should have default value for min if only max is set", () => {
+    //   assertHueWithinRange({ hue: { max: 10 } }, { min: 0, max: 10 });
+    // });
 
-    it("should have default value for max if only min is set", function() {
-      assertHueWithinRange({ hue: { min: 350 } }, { min: 350, max: 360 });
-    });
+    // it("should have default value for max if only min is set", () => {
+    //   assertHueWithinRange({ hue: { min: 350 } }, { min: 350, max: 360 });
+    // });
 
-    it("should return the hash color based on different hue ranges", function() {
+    it("should return the hash color based on different hue ranges", () => {
       var ranges = [
         { min: 30, max: 90 },
         { min: 180, max: 210 },
@@ -127,51 +96,51 @@ describe("ColorHash", function() {
     });
   });
 
-  describe("#Lightness & Saturation", function() {
-    it("should return the hash color based on default lightness and saturation", function() {
+  describe("#Lightness & Saturation", () => {
+    it("should return the hash color based on default lightness and saturation", () => {
       var colorHash = new ColorHash();
       var hsl = colorHash.hsl("");
       hsl.shift();
-      assert.deepEqual(hsl, [0.35, 0.35]);
+      expect(hsl).toEqual([0.35, 0.35]);
     });
 
-    it("should return the hash color based on the given lightness and saturation", function() {
+    it("should return the hash color based on the given lightness and saturation", () => {
       var colorHash = new ColorHash({ lightness: 0.5, saturation: 0.5 });
       var hsl = colorHash.hsl("");
-      assert.deepEqual([hsl[1], hsl[2]], [0.5, 0.5]);
+      expect([hsl[1], hsl[2]]).toEqual([0.5, 0.5]);
     });
 
-    it("should return the hash color based on the given lightness array and saturation array", function() {
+    it("should return the hash color based on the given lightness array and saturation array", () => {
       var colorHash = new ColorHash({
         lightness: [0.9, 1],
         saturation: [0.9, 1]
       });
       var hsl = colorHash.hsl("");
-      assert.deepEqual([hsl[1], hsl[2]], [0.9, 0.9]);
+      expect([hsl[1], hsl[2]]).toEqual([0.9, 0.9])
     });
   });
 
-  describe("#CustomHash", function() {
-    var customHash = function(str) {
-      var hash = 0;
-      for (var i = 0; i < str.length; i++) {
+  describe("#CustomHash", () => {
+    const customHash = (str: string): number => {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
         hash += str.charCodeAt(i);
       }
       return hash;
     };
-    var colorHash = new ColorHash({ hash: customHash });
-    var hsl = [customHash("abc") % 359, 0.35, 0.35];
-    var rgb = HSL2RGB(hsl[0], hsl[1], hsl[2]);
-    var hex = RGB2HEX(rgb);
+    const colorHash = new ColorHash({ hash: customHash });
+    const hsl = [customHash("abc") % 359, 0.35, 0.35];
+    const rgb = testFroHSL2RGB(hsl[0], hsl[1], hsl[2]);
+    const hex = testForRGB2HEX(rgb);
 
-    it("#hsl: should return the hsl color based on the given hash function", function() {
-      assert.deepEqual(colorHash.hsl("abc"), hsl);
+    it("#hsl: should return the hsl color based on the given hash function", () => {
+      expect(colorHash.hsl("abc")).toEqual(hsl);
     });
-    it("#rgb: should return the rgb color based on the given hash function", function() {
-      assert.deepEqual(colorHash.rgb("abc"), rgb);
+    it("#rgb: should return the rgb color based on the given hash function", () => {
+      expect(colorHash.rgb("abc")).toEqual(rgb);
     });
-    it("#hex: should return the hex color based on the given hash function", function() {
-      assert.deepEqual(colorHash.hex("abc"), hex);
+    it("#hex: should return the hex color based on the given hash function", () => {
+      expect(colorHash.hex("abc")).toEqual(hex);
     });
   });
 });

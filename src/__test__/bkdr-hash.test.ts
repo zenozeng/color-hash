@@ -1,11 +1,15 @@
 import { BKDRHash } from "../bkdr-hash";
 
-describe("BKDRHash", function() {
-  it("should return different value for different string", function() {
+describe("BKDRHash", () => {
+  it("should return the same value for the same string", () => {
+    expect(BKDRHash("abc")).toEqual(BKDRHash("abc"));
+  });
+
+  it("should return different value for different string", () => {
     expect(BKDRHash("abc")).not.toEqual(BKDRHash("hij"));
   });
 
-  it("should work even if the string is very long", function() {
+  it("should work even if the string is very long", () => {
     var longstr = "";
     for (var i = 0; i < 10 * 1000; i++) {
       longstr += "Hello World.";
@@ -15,7 +19,7 @@ describe("BKDRHash", function() {
     expect(hash).not.toEqual(0);
   });
 
-  it("should return different value for different long string", function() {
+  it("should return different value for different long string", () => {
     var longstr = "";
     for (var i = 0; i < 10 * 1000; i++) {
       longstr += "Hello World.";
