@@ -1,21 +1,21 @@
 {
     "name": "color-hash",
-    "version": "1.0.3",
+    "version": "0.0.1",
     "description": "Generate color based on the given string (using HSL color space and BKDRHash).",
     "main": "lib/color-hash.js",
     "scripts": {
         "prepublishOnly": "npm run test && npm run build",
-        "build": "browserify lib/color-hash.js -s ColorHash -o dist/color-hash.js",
+        "build": "tsc",
         "test": "jest"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/zenozeng/color-hash.git"
+        "url": "https://github.com/zanza00/color-hash.git"
     },
-    "author": "Zeno Zeng",
+    "author": "Simone Picciani",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/zenozeng/color-hash/issues"
+        "url": "https://github.com/zanza00/color-hash/issues"
     },
     "devDependencies": {
         "@types/jest": "^24.0.23",
