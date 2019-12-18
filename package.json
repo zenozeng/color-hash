@@ -2,7 +2,8 @@
     "name": "color-hash-ts",
     "version": "0.0.3",
     "description": "Generate color based on the given string (using HSL color space and BKDRHash).",
-    "main": "dist/color-hash.js",
+    "main": "lib/color-hash.js",
+    "types" : "lib/color-hash.d.ts",
     "scripts": {
         "prepublishOnly": "npm run test && npm run build",
         "build": "tsc",
