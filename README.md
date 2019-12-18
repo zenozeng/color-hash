@@ -5,7 +5,7 @@ Generate color based on the given string.
 ## Demo
 
 - [Live site](https://color-hash-ts-demo.now.sh/)
-- [CodeSandbox](https://codesandbox.io/s/stupefied-wind-xjfwq)
+- [CodeSandbox](https://codesandbox.io/s/github/zanza00/color-hash-ts-demo)
 
 ## Usage
 
