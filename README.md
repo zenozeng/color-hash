@@ -4,17 +4,28 @@ Generate color based on the given string.
 
 ## Demo
 
-TBD
+- [Live site](https://color-hash-ts-demo.now.sh/)
+- [CodeSandbox](https://codesandbox.io/s/stupefied-wind-xjfwq)
 
 ## Usage
 
 ### Install
+```sh
+yarn add color-hash-ts
+```
 
-TBD
+or
+
+```sh
+npm i color-hash-ts
+```
+
 
 #### Basic
 
-```javascript
+Warning: API will change
+
+```typescript
 const colorHash = new ColorHash();
 
 // in HSL, Hue ∈ [0, 360), Saturation ∈ [0, 1], Lightness ∈ [0, 1]
@@ -29,7 +40,7 @@ colorHash.hex('Hello World'); // '#8796c5'
 
 #### Custom Hash Function
 
-```javascript
+```typescript
 const customHash = (str) => {
     let hash = 0;
     for(let i = 0; i < str.length; i++) {
@@ -45,35 +56,35 @@ colorHash.hex('Hello World!');
 
 #### Custom Hue
 
-```javascript
+```typescript
 const colorHash = new ColorHash({hue: 90});
 ```
 
-```javascript
+```typescript
 const colorHash = new ColorHash({hue: {min: 90, max: 270}});
 ```
 
-```javascript
+```typescript
 const colorHash = new ColorHash({hue: [ {min: 30, max: 90}, {min: 180, max: 210}, {min: 270, max: 285} ]});
 ```
 
 #### Custom Lightness
 
-```javascript
+```typescript
 const colorHash = new ColorHash({lightness: 0.5});
 ```
 
-```javascript
+```typescript
 const colorHash = new ColorHash({lightness: [0.35, 0.5, 0.65]});
 ```
 
 #### Custom Saturation
 
-```javascript
+```typescript
 const colorHash = new ColorHash({saturation: 0.5});
 ```
 
-```javascript
+```typescript
 const colorHash = new ColorHash({saturation: [0.35, 0.5, 0.65]});
 ```
 
@@ -117,6 +128,3 @@ yarn
 yarn build
 ```
 
-### Follow Semantic Versioning
-
-http://semver.org/lang/zh-CN/
