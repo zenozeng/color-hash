@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "outDir": "./lib",
-    "module": "esnext",
+    "module": "CommonJS",
     "target": "es5",
-    "lib": ["es2017", "es7", "dom"],
+    "lib": ["es2017", "es7"],
     "types": ["jest", "node"],
+    "declaration": true,
     "sourceMap": true,
     "moduleResolution": "node",
     "noImplicitReturns": true,
