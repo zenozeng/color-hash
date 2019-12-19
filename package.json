@@ -1,31 +1,33 @@
 {
-    "name": "color-hash-ts",
-    "version": "0.0.4",
-    "description": "Generate color based on the given string (using HSL color space and BKDRHash).",
-    "main": "lib/color-hash.js",
-    "types": "lib/color-hash.d.ts",
-    "scripts": {
-        "prepublishOnly": "npm run test && npm run build",
-        "build": "tsc",
-        "test": "jest"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/zanza00/color-hash.git"
-    },
-    "author": "Simone Picciani",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/zanza00/color-hash/issues"
-    },
-    "devDependencies": {
-        "@types/jest": "^24.0.23",
-        "@types/node": "^12.12.17",
-        "@types/string-hash": "^1.1.1",
-        "jest": "^24.9.0",
-        "string-hash": "^1.1.3",
-        "ts-jest": "^24.2.0",
-        "tslib": "^1.10.0",
-        "typescript": "^3.7.3"
-    }
+  "name": "color-hash-ts",
+  "version": "0.0.0-development",
+  "description": "Generate color based on the given string (using HSL color space and BKDRHash).",
+  "main": "lib/color-hash.js",
+  "types": "lib/color-hash.d.ts",
+  "scripts": {
+    "prepublishOnly": "npm run test && npm run build",
+    "build": "tsc",
+    "test": "jest",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zanza00/color-hash.git"
+  },
+  "author": "Simone Picciani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zanza00/color-hash/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.17",
+    "@types/string-hash": "^1.1.1",
+    "jest": "^24.9.0",
+    "string-hash": "^1.1.3",
+    "ts-jest": "^24.2.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.3",
+    "semantic-release": "^15.13.31"
+  }
 }
