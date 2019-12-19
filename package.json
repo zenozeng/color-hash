@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "jest",
     "semantic-release": "semantic-release",
-    "commit": "pretty-quick --staged && git-cz"
+    "cz": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.17",
     "@types/string-hash": "^1.1.1",
+    "commitizen": "^4.0.3",
     "cz-conventional-changelog": "3.0.2",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
