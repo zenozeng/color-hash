@@ -8,10 +8,9 @@ node_js:
 jobs:
   include:
     - stage: test
-      script:
-        - yarn build  
-        - yarn lint
-        - yarn test
+      script: yarn build 
+      script: yarn lint
+      script: yarn test
     # Define the release stage that runs semantic-release
     - stage: release
       # Advanced: optionally overwrite your default `script` step to skip the tests
@@ -19,5 +18,4 @@ jobs:
       deploy:
         provider: script
         cleanup: false
-        script:
-          - npx semantic-release
+        script: npx semantic-release
