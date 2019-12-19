@@ -21,6 +21,9 @@
     "url": "https://github.com/zanza00/color-hash/issues"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/travis-cli": "^8.2.0",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.17",
     "@types/string-hash": "^1.1.1",
@@ -43,7 +46,7 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "pretty-quick --staged"
     }
   }
