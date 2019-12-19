@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "jest",
     "semantic-release": "semantic-release",
-    "commit": "git-cz"
+    "commit": "pretty-quick --staged && git-cz"
   },
   "repository": {
     "type": "git",
