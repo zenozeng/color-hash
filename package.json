@@ -5,9 +5,10 @@
   "main": "lib/color-hash.js",
   "types": "lib/color-hash.d.ts",
   "scripts": {
-    "prepublishOnly": "npm run test && npm run build",
     "build": "tsc",
     "test": "jest",
+    "lint": "yarn prettier-check",
+    "prettier-check": "prettier --check \"src/**/*.ts\"",
     "semantic-release": "semantic-release",
     "cz": "git-cz"
   },

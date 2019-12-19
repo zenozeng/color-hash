@@ -7,6 +7,11 @@ node_js:
 
 jobs:
   include:
+    - stage: test
+      script:
+        - yarn build  
+        - yarn lint
+        - yarn test
     # Define the release stage that runs semantic-release
     - stage: release
       node_js: lts/*
