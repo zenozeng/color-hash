@@ -19,8 +19,8 @@ function RGB2HEX(RGBArray: [number, number, number]): string {
 
 export { RGB2HEX as testForRGB2HEX };
 
-type func = (p: number, q: number) => (color: number) => number
-const paramToColor: func = (p, q) => (color) => {
+type func = (p: number, q: number) => (color: number) => number;
+const paramToColor: func = (p, q) => color => {
   if (color < 0) {
     color++;
   }
@@ -37,7 +37,7 @@ const paramToColor: func = (p, q) => (color) => {
     color = p;
   }
   return Math.round(color * 255);
-}
+};
 
 /**
  * Convert HSL to RGB
@@ -54,7 +54,7 @@ function HSL2RGB(H: number, S: number, L: number): [number, number, number] {
   var q = L < 0.5 ? L * (1 + S) : L + S - L * S;
   var p = 2 * L - q;
 
-  const partial = paramToColor(p, q)
+  const partial = paramToColor(p, q);
 
   return [partial(H + 1 / 3), partial(H), partial(H - 1 / 3)];
 }
@@ -76,10 +76,13 @@ export type options = {
 class ColorHash {
   L: number[];
   S: number[];
-  hueRanges: { min: number, max: number }[];
+  hueRanges: { min: number; max: number }[];
   hash: (str: string) => number;
   constructor(options: options = {}) {
-    const LS = [options.lightness ?? [0.35, 0.5, 0.65], options.saturation ?? [0.35, 0.5, 0.65]].map((param) => {
+    const LS = [
+      options.lightness ?? [0.35, 0.5, 0.65],
+      options.saturation ?? [0.35, 0.5, 0.65]
+    ].map(param => {
       return Array.isArray(param) ? param.concat() : [param];
     });
 
@@ -95,7 +98,7 @@ class ColorHash {
     if (typeof options.hue === "undefined") {
       options.hue = [];
     }
-    this.hueRanges = options.hue.map((range) => {
+    this.hueRanges = options.hue.map(range => {
       return {
         min: typeof range.min === "undefined" ? 0 : range.min,
         max: typeof range.max === "undefined" ? 360 : range.max
@@ -109,12 +112,13 @@ class ColorHash {
     if (this.hueRanges.length > 0) {
       const range = this.hueRanges[hash % this.hueRanges.length];
       const hueResolution = 727; // note that 727 is a prime
-      return (((hash / this.hueRanges.length) % hueResolution) *
-        (range.max - range.min)) /
-        hueResolution +
-        range.min;
-    }
-    else {
+      return (
+        (((hash / this.hueRanges.length) % hueResolution) *
+          (range.max - range.min)) /
+          hueResolution +
+        range.min
+      );
+    } else {
       return hash % 359; // note that 359 is a prime
     }
   }

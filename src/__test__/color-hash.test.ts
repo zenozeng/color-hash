@@ -1,11 +1,21 @@
 import stringHash from "string-hash";
-import ColorHash, { options, testFroHSL2RGB, testForRGB2HEX } from "../color-hash";
+import ColorHash, {
+  options,
+  testFroHSL2RGB,
+  testForRGB2HEX
+} from "../color-hash";
 
-function assertHueWithinRange(options: options, expectedRange: { min: number; max: number; }) {
+function assertHueWithinRange(
+  options: options,
+  expectedRange: { min: number; max: number }
+) {
   return assertHueWithinRanges(options, [expectedRange]);
 }
 
-function assertHueWithinRanges(options: options, rangesA: { min: number; max: number; }[]) {
+function assertHueWithinRanges(
+  options: options,
+  rangesA: { min: number; max: number }[]
+) {
   options.hash = stringHash; // This hash function spreads its results more
 
   function hueOf(s: string) {
@@ -14,7 +24,7 @@ function assertHueWithinRanges(options: options, rangesA: { min: number; max: nu
     return hsl[0];
   }
 
-  const ranges = rangesA.map((range) => {
+  const ranges = rangesA.map(range => {
     return {
       min: range.min,
       max: range.max,
@@ -32,24 +42,20 @@ function assertHueWithinRanges(options: options, rangesA: { min: number; max: nu
   var hue: number;
   for (let i = 0; i < iterations; i++) {
     hue = hueOf("This is some padding, and then a counter: " + i);
-    expect(hue >= 0 || hue < 360).toBe(true)
-    const withinAtLeastOneRange = ranges.reduce((
-      withinAnyRangeYet,
-      range
-    ) => {
+    expect(hue >= 0 || hue < 360).toBe(true);
+    const withinAtLeastOneRange = ranges.reduce((withinAnyRangeYet, range) => {
       const withinThisRange = hue >= range.min && hue <= range.max;
       if (withinThisRange) {
         range.minSeen = Math.min(range.minSeen, hue);
         range.maxSeen = Math.max(range.maxSeen, hue);
       }
       return withinAnyRangeYet || withinThisRange;
-    },
-      false);
-    expect(withinAtLeastOneRange).toBe(true)
+    }, false);
+    expect(withinAtLeastOneRange).toBe(true);
   }
-  ranges.forEach((range) => {
-    expect(Math.round(range.minSeen)).toBe(range.min)
-    expect(Math.round(range.maxSeen)).toBe(range.max)
+  ranges.forEach(range => {
+    expect(Math.round(range.minSeen)).toBe(range.min);
+    expect(Math.round(range.maxSeen)).toBe(range.max);
   });
 }
 
@@ -116,7 +122,7 @@ describe("ColorHash", () => {
         saturation: [0.9, 1]
       });
       var hsl = colorHash.hsl("");
-      expect([hsl[1], hsl[2]]).toEqual([0.9, 0.9])
+      expect([hsl[1], hsl[2]]).toEqual([0.9, 0.9]);
     });
   });
 
