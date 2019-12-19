@@ -1,5 +1,7 @@
 # Color Hash
 
+![Travis (.org)](https://img.shields.io/travis/zanza00/color-hash) ![David](https://img.shields.io/david/zanza00/color-hash) ![npm bundle size](https://img.shields.io/bundlephobia/min/color-hash-ts)
+
 Generate color based on the given string.
 
 ## Demo
@@ -10,6 +12,7 @@ Generate color based on the given string.
 ## Usage
 
 ### Install
+
 ```sh
 yarn add color-hash-ts
 ```
@@ -20,7 +23,6 @@ or
 npm i color-hash-ts
 ```
 
-
 #### Basic
 
 Warning: API will change
@@ -29,63 +31,69 @@ Warning: API will change
 const colorHash = new ColorHash();
 
 // in HSL, Hue ∈ [0, 360), Saturation ∈ [0, 1], Lightness ∈ [0, 1]
-colorHash.hsl('Hello World'); // [ 225, 0.65, 0.35 ]
+colorHash.hsl("Hello World"); // [ 225, 0.65, 0.35 ]
 
 // in RGB, R, G, B ∈ [0, 255]
-colorHash.rgb('Hello World'); // [ 135, 150, 197 ]
+colorHash.rgb("Hello World"); // [ 135, 150, 197 ]
 
 // in HEX
-colorHash.hex('Hello World'); // '#8796c5'
+colorHash.hex("Hello World"); // '#8796c5'
 ```
 
 #### Custom Hash Function
 
 ```typescript
-const customHash = (str) => {
-    let hash = 0;
-    for(let i = 0; i < str.length; i++) {
-        hash += str.charCodeAt(i);
-    }
-    return hash;
+const customHash = str => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash += str.charCodeAt(i);
+  }
+  return hash;
 };
-const colorHash = new ColorHash({hash: customHash});
-colorHash.hsl('Hello World!');
-colorHash.rgb('Hello World!');
-colorHash.hex('Hello World!');
+const colorHash = new ColorHash({ hash: customHash });
+colorHash.hsl("Hello World!");
+colorHash.rgb("Hello World!");
+colorHash.hex("Hello World!");
 ```
 
 #### Custom Hue
 
 ```typescript
-const colorHash = new ColorHash({hue: 90});
+const colorHash = new ColorHash({ hue: 90 });
 ```
 
 ```typescript
-const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+const colorHash = new ColorHash({ hue: { min: 90, max: 270 } });
 ```
 
 ```typescript
-const colorHash = new ColorHash({hue: [ {min: 30, max: 90}, {min: 180, max: 210}, {min: 270, max: 285} ]});
+const colorHash = new ColorHash({
+  hue: [
+    { min: 30, max: 90 },
+    { min: 180, max: 210 },
+    { min: 270, max: 285 }
+  ]
+});
 ```
 
 #### Custom Lightness
 
 ```typescript
-const colorHash = new ColorHash({lightness: 0.5});
+const colorHash = new ColorHash({ lightness: 0.5 });
 ```
 
 ```typescript
-const colorHash = new ColorHash({lightness: [0.35, 0.5, 0.65]});
+const colorHash = new ColorHash({ lightness: [0.35, 0.5, 0.65] });
 ```
 
 #### Custom Saturation
 
 ```typescript
-const colorHash = new ColorHash({saturation: 0.5});
+const colorHash = new ColorHash({ saturation: 0.5 });
 ```
 
 ```typescript
-const colorHash = new ColorHash({saturation: [0.35, 0.5, 0.65]});
+const colorHash = new ColorHash({ saturation: [0.35, 0.5, 0.65] });
 ```
 
 ## License
@@ -127,4 +135,3 @@ yarn test
 yarn
 yarn build
 ```
-
