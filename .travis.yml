@@ -21,5 +21,5 @@ jobs:
         cleanup: false
         skip_cleanup: true
         script:
-        - yarn build
-        - npx semantic-release
+          - yarn build
+          - npx semantic-release
