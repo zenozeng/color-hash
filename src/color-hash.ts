@@ -7,7 +7,7 @@ import { BKDRHash } from "./bkdr-hash";
  * @returns {String} 6 digits hex starting with #
  */
 function RGB2HEX(RGBArray: [number, number, number]): string {
-  var hex = "#";
+  let hex = "#";
   RGBArray.forEach(value => {
     if (value < 16) {
       hex += 0;
@@ -42,21 +42,21 @@ const paramToColor: func = (p, q) => color => {
 /**
  * Convert HSL to RGB
  *
- * @see {@link http://zh.wikipedia.org/wiki/HSL和HSV色彩空间} for further information.
+ * @see {@link https://en.wikipedia.org/wiki/HSL_and_HSV} for further information.
  * @param {Number} H Hue ∈ [0, 360)
  * @param {Number} S Saturation ∈ [0, 1]
  * @param {Number} L Lightness ∈ [0, 1]
  * @returns {Array} R, G, B ∈ [0, 255]
  */
 function HSL2RGB(H: number, S: number, L: number): [number, number, number] {
-  H /= 360;
+  const H360 = H / 360;
 
-  var q = L < 0.5 ? L * (1 + S) : L + S - L * S;
-  var p = 2 * L - q;
+  const q = L < 0.5 ? L * (1 + S) : L + S - L * S;
+  const p = 2 * L - q;
 
   const partial = paramToColor(p, q);
 
-  return [partial(H + 1 / 3), partial(H), partial(H - 1 / 3)];
+  return [partial(H360 + 1 / 3), partial(H360), partial(H360 - 1 / 3)];
 }
 
 export { HSL2RGB as testFroHSL2RGB };
@@ -74,10 +74,11 @@ export type options = {
  * @class
  */
 class ColorHash {
-  L: number[];
-  S: number[];
-  hueRanges: { min: number; max: number }[];
-  hash: (str: string) => number;
+  private L: number[];
+  private S: number[];
+  private hueRanges: { min: number; max: number }[];
+  private hash: (str: string) => number;
+
   constructor(options: options = {}) {
     const LS = [
       options.lightness ?? [0.35, 0.5, 0.65],
@@ -131,17 +132,17 @@ class ColorHash {
    * @returns {Array} [h, s, l]
    */
   hsl(str: string): [number, number, number] {
-    let hash = this.hash(str);
+    const hash = this.hash(str);
 
     const H = this.getHue(hash);
 
-    hash = hash / 360;
+    const sHash = Math.floor(hash / 360);
 
-    const S = this.S[Math.floor(hash % this.S.length)];
+    const S = this.S[sHash % this.S.length];
 
-    hash = hash / this.S.length;
+    const lHash = Math.floor(sHash / this.S.length);
 
-    const L = this.L[Math.floor(hash % this.L.length)];
+    const L = this.L[lHash % this.L.length];
 
     return [H, S, L];
   }
@@ -155,7 +156,6 @@ class ColorHash {
    */
   rgb(str: string): [number, number, number] {
     const hsl = this.hsl(str);
-    // console.log('hsl', hsl)
     return HSL2RGB(...hsl);
   }
 
