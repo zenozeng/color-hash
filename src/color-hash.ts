@@ -7,7 +7,7 @@ import { BKDRHash } from "./bkdr-hash";
  * @returns {String} 6 digits hex starting with #
  */
 function RGB2HEX(RGBArray: [number, number, number]): string {
-  var hex = "#";
+  let hex = "#";
   RGBArray.forEach(value => {
     if (value < 16) {
       hex += 0;
@@ -42,21 +42,21 @@ const paramToColor: func = (p, q) => color => {
 /**
  * Convert HSL to RGB
  *
- * @see {@link http://zh.wikipedia.org/wiki/HSL和HSV色彩空间} for further information.
+ * @see {@link https://en.wikipedia.org/wiki/HSL_and_HSV} for further information.
  * @param {Number} H Hue ∈ [0, 360)
  * @param {Number} S Saturation ∈ [0, 1]
  * @param {Number} L Lightness ∈ [0, 1]
  * @returns {Array} R, G, B ∈ [0, 255]
  */
 function HSL2RGB(H: number, S: number, L: number): [number, number, number] {
-  H /= 360;
+  const H360 = H / 360;
 
   const q = L < 0.5 ? L * (1 + S) : L + S - L * S;
   const p = 2 * L - q;
 
   const partial = paramToColor(p, q);
 
-  return [partial(H + 1 / 3), partial(H), partial(H - 1 / 3)];
+  return [partial(H360 + 1 / 3), partial(H360), partial(H360 - 1 / 3)];
 }
 
 export { HSL2RGB as testFroHSL2RGB };
