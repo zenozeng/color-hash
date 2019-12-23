@@ -51,8 +51,8 @@ const paramToColor: func = (p, q) => color => {
 function HSL2RGB(H: number, S: number, L: number): [number, number, number] {
   H /= 360;
 
-  var q = L < 0.5 ? L * (1 + S) : L + S - L * S;
-  var p = 2 * L - q;
+  const q = L < 0.5 ? L * (1 + S) : L + S - L * S;
+  const p = 2 * L - q;
 
   const partial = paramToColor(p, q);
 
@@ -74,10 +74,11 @@ export type options = {
  * @class
  */
 class ColorHash {
-  L: number[];
-  S: number[];
-  hueRanges: { min: number; max: number }[];
-  hash: (str: string) => number;
+  private L: number[];
+  private S: number[];
+  private hueRanges: { min: number; max: number }[];
+  private hash: (str: string) => number;
+
   constructor(options: options = {}) {
     const LS = [
       options.lightness ?? [0.35, 0.5, 0.65],
@@ -131,17 +132,17 @@ class ColorHash {
    * @returns {Array} [h, s, l]
    */
   hsl(str: string): [number, number, number] {
-    let hash = this.hash(str);
+    const hash = this.hash(str);
 
     const H = this.getHue(hash);
 
-    hash = hash / 360;
+    const sHash = Math.floor(hash / 360);
 
-    const S = this.S[Math.floor(hash % this.S.length)];
+    const S = this.S[sHash % this.S.length];
 
-    hash = hash / this.S.length;
+    const lHash = Math.floor(sHash / this.S.length);
 
-    const L = this.L[Math.floor(hash % this.L.length)];
+    const L = this.L[lHash % this.L.length];
 
     return [H, S, L];
   }
@@ -155,7 +156,6 @@ class ColorHash {
    */
   rgb(str: string): [number, number, number] {
     const hsl = this.hsl(str);
-    // console.log('hsl', hsl)
     return HSL2RGB(...hsl);
   }
 
