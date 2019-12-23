@@ -13,7 +13,7 @@ export function BKDRHash(str: string): number {
   const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER / seed2;
   for (let i = 0; i < str.length; i++) {
     if (hash > MAX_SAFE_INTEGER) {
-      hash = hash / seed2;
+      hash = Math.floor(hash / seed2);
     }
     hash = hash * seed + str.charCodeAt(i);
   }
