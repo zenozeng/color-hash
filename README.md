@@ -11,7 +11,7 @@ https://zenozeng.github.io/color-hash/demo/
 ### Browser
 
 ```bash
-bower install color-hash
+npm install color-hash
 ```
 
 A UMD version of ColorHash is located in `dist/`.
