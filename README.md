@@ -8,16 +8,11 @@ https://zenozeng.github.io/color-hash/demo/
 
 ## Usage
 
-### Browser
+### npm
 
 ```bash
 npm install color-hash
 ```
-
-A UMD version of ColorHash is located in `dist/`.
-
-Note that `Array.prototype.map` is used in `color-hash`,
-a polyfill must be provided if you want to use it in IE8.
 
 #### Basic
 
@@ -82,16 +77,6 @@ var colorHash = new ColorHash({saturation: 0.5});
 
 ```javascript
 var colorHash = new ColorHash({saturation: [0.35, 0.5, 0.65]});
-```
-
-### Node.js
-
-```bash
-npm install color-hash --save
-```
-
-```javascript
-var ColorHash = require('color-hash');
 ```
 
 ## License
