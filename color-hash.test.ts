@@ -1,9 +1,12 @@
+import {assertEquals} from 'https://deno.land/std@0.93.0/testing/asserts.ts';
+
+import {HSL2RGB, RGB2HEX} from './lib/colors.ts';
+
+
 var assert = require('assert');
 var rewire = require('rewire');
 var ColorHash = rewire('../lib/color-hash');
 var stringHash = require('string-hash');
-var HSL2RGB = ColorHash.__get__('HSL2RGB');
-var RGB2HEX = ColorHash.__get__('RGB2HEX');
 
 function assertHueWithinRange(options, expectedRange) {
     return assertHueWithinRanges(options, [expectedRange]);
@@ -16,13 +19,13 @@ function assertHueWithinRanges(options, ranges) {
     }
     options.hash = stringHash; // This hash function spreads its results more
 
-    function hueOf(s) {
+    function hueOf(s: string) {
         var colorHash = new ColorHash(options);
         var hsl = colorHash.hsl(s);
         return hsl[0];
     }
 
-    ranges = ranges.map(function (range) {
+    ranges = ranges.map(function (range: {min: number, max: number}) {
         return {
             min: range.min,
             max: range.max,

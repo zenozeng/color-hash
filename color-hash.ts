@@ -1,4 +1,5 @@
 import BKDRHash from './lib/bkdr-hash.ts';
+import { Sha256ToInt } from './lib/sha256.ts';
 import { RGB2HEX, HSL2RGB } from './lib/colors.ts';
 
 class ColorHash {
@@ -12,7 +13,7 @@ class ColorHash {
         lightness?: number | number[],
         saturation?: number | number[],
         hue?: number | {max: number, min: number} | {max: number, min: number}[],
-        hash?: (str: string) => number;
+        hash?: string | ((str: string) => number);
     } = {}) {
         const [L, S] = [options.lightness, options.saturation].map(function(param) {
             param = param !== undefined ? param : [0.35, 0.5, 0.65]; // note that 3 is a prime
@@ -38,7 +39,13 @@ class ColorHash {
             };
         });
     
-        this.hash = options.hash || BKDRHash;
+        this.hash = BKDRHash; // Default hash function
+        if (typeof options.hash === 'function') {
+            this.hash = options.hash;
+        } 
+        if (options.hash === 'sha256') {
+            this.hash = Sha256ToInt;
+        }
     }
 
     /**
