@@ -61,7 +61,7 @@ class ColorHash {
         var hueResolution = 727; // note that 727 is a prime
     
         if (this.hueRanges.length) {
-            var range = this.hueRanges[hash % this.hueRanges.length];
+            const range = this.hueRanges[hash % this.hueRanges.length];
             H = ((hash / this.hueRanges.length) % hueResolution) * (range.max - range.min) / hueResolution + range.min;
         } else {
             H = hash % 359; // note that 359 is a prime
