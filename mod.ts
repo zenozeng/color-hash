@@ -39,12 +39,12 @@ class ColorHash {
             };
         });
     
-        this.hash = BKDRHash; // Default hash function
+        this.hash = Sha256ToInt; // Default hash function
         if (typeof options.hash === 'function') {
             this.hash = options.hash;
         } 
-        if (options.hash === 'sha256') {
-            this.hash = Sha256ToInt;
+        if (options.hash === 'bkdr') {
+            this.hash = BKDRHash;
         }
     }
 
