@@ -54,12 +54,12 @@
 </head>
 <body>
     <h1>Color Hash</h1>
-    <p>Generate color based on the given string.</p>
+    <p>Generate color based on the given string (using HSL color space and SHA256).</p>
     <input type="text" id="str" placeholder="Type Here">
     <ul id="history">
     </ul>
-    <script type="module">
-        import ColorHash from '../dist/bundle.js';
+    <script src="../dist/color-hash.js"></script>
+    <script>
         var input = document.getElementById('str');
         var historyList = document.getElementById('history');
         var colorHash = new ColorHash();
