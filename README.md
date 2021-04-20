@@ -8,6 +8,12 @@ https://zenozeng.github.io/color-hash/demo/
 
 ## Usage
 
+### Deno
+
+```typescript
+import ColorHash from "https://deno.land/x/color_hash@v2.0.0/mod.ts"
+```
+
 ### Node.js
 
 ```bash
