@@ -58,8 +58,8 @@
     <input type="text" id="str" placeholder="Type Here">
     <ul id="history">
     </ul>
-    <script src="../dist/color-hash.js"></script>
-    <script>
+    <script type="module">
+        import ColorHash from '../dist/esm.js';
         var input = document.getElementById('str');
         var historyList = document.getElementById('history');
         var colorHash = new ColorHash();

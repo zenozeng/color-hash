@@ -34,7 +34,7 @@ const ColorHash = require('color-hash').default;
 
 ```html
 <script type="module">
-import ColorHash from '../dist/bundle.js';
+import ColorHash from '../dist/esm.js';
 </script>
 ```
 
