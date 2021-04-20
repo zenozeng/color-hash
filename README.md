@@ -139,12 +139,6 @@ deno test
 
 https://zenozeng.github.io/color-hash/coverage/lcov-report/lib/index.html
 
-### Build browser js
-
-```bash
-npm install
-npm run build
-```
 
 ### Follow Semantic Versioning
 
