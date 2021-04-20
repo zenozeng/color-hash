@@ -8,10 +8,28 @@ https://zenozeng.github.io/color-hash/demo/
 
 ## Usage
 
-### npm
+### Node.js
 
 ```bash
 npm install color-hash
+```
+
+```typescript
+import ColorHash from 'color-hash'
+```
+
+or
+
+```javascript
+const ColorHash = require('color-hash').default;
+```
+
+### <script type="module">
+
+```html
+<script type="module">
+import ColorHash from '../dist/bundle.js';
+</script>
 ```
 
 #### Basic
@@ -108,8 +126,7 @@ Simply sets lightness and saturation and change hue uniformly can generate unifo
 ### Test
 
 ```bash
-npm install
-npm test
+deno test
 ```
 
 #### Coverage Report
