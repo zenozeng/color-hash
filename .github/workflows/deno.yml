@@ -32,7 +32,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@main
         with:
-          deno-version: ${{ matrix.deno }} # tests across multiple Deno versions
+          deno-version: v1.x
 
       - name: Run Tests
         run: deno test
