@@ -63,8 +63,11 @@
         var input = document.getElementById('str');
         var historyList = document.getElementById('history');
         var colorHash = new ColorHash();
+        const escapeHTML = function(str) {
+            return str.replace(/[<>"&]/g, '')
+        }
         input.oninput = function() {
-            var str = input.value;
+            var str = escapeHTML(input.value);
             if (!str) {
                 return
             }
