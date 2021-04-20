@@ -65,6 +65,9 @@
         var colorHash = new ColorHash();
         input.oninput = function() {
             var str = input.value;
+            if (!str) {
+                return
+            }
             var hex = colorHash.hex(str);
             var li = document.createElement('li');
             li.style.borderLeftColor = hex;
