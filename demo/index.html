@@ -58,20 +58,20 @@
     <input type="text" id="str" placeholder="Type Here">
     <ul id="history">
     </ul>
-    <script src="../dist/color-hash.js"></script>
-    <script>
-     var input = document.getElementById('str');
-     var historyList = document.getElementById('history');
-     var colorHash = new ColorHash();
-     input.oninput = function() {
-         var str = input.value;
-         var hex = colorHash.hex(str);
-         var li = document.createElement('li');
-         li.style.borderLeftColor = hex;
-         li.style.color = hex;
-         li.innerHTML = '<span class="hex">' + hex.toUpperCase() + '</span><span class="text">' + str + '</span>';
-         historyList.insertBefore(li, document.querySelector('#history li'));
-     }
+    <script type="module">
+        import ColorHash from '../dist/bundle.js';
+        var input = document.getElementById('str');
+        var historyList = document.getElementById('history');
+        var colorHash = new ColorHash();
+        input.oninput = function() {
+            var str = input.value;
+            var hex = colorHash.hex(str);
+            var li = document.createElement('li');
+            li.style.borderLeftColor = hex;
+            li.style.color = hex;
+            li.innerHTML = '<span class="hex">' + hex.toUpperCase() + '</span><span class="text">' + str + '</span>';
+            historyList.insertBefore(li, document.querySelector('#history li'));
+        }
     </script>
 </body>
 

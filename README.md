@@ -8,16 +8,29 @@ https://zenozeng.github.io/color-hash/demo/
 
 ## Usage
 
-### Browser
+### Node.js
 
 ```bash
 npm install color-hash
 ```
 
-A UMD version of ColorHash is located in `dist/`.
+```typescript
+import ColorHash from 'color-hash'
+```
 
-Note that `Array.prototype.map` is used in `color-hash`,
-a polyfill must be provided if you want to use it in IE8.
+or
+
+```javascript
+const ColorHash = require('color-hash').default;
+```
+
+### <script type="module">
+
+```html
+<script type="module">
+import ColorHash from '../dist/bundle.js';
+</script>
+```
 
 #### Basic
 
@@ -84,16 +97,6 @@ var colorHash = new ColorHash({saturation: 0.5});
 var colorHash = new ColorHash({saturation: [0.35, 0.5, 0.65]});
 ```
 
-### Node.js
-
-```bash
-npm install color-hash --save
-```
-
-```javascript
-var ColorHash = require('color-hash');
-```
-
 ## License
 
 MIT.
@@ -123,8 +126,7 @@ Simply sets lightness and saturation and change hue uniformly can generate unifo
 ### Test
 
 ```bash
-npm install
-npm test
+deno test
 ```
 
 #### Coverage Report
