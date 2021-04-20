@@ -58,13 +58,19 @@
     <input type="text" id="str" placeholder="Type Here">
     <ul id="history">
     </ul>
-    <script src="../dist/color-hash.js"></script>
-    <script>
+    <script type="module">
+        import ColorHash from '../dist/esm.js';
         var input = document.getElementById('str');
         var historyList = document.getElementById('history');
         var colorHash = new ColorHash();
+        const escapeHTML = function(str) {
+            return str.replace(/[<>"&]/g, '')
+        }
         input.oninput = function() {
-            var str = input.value;
+            var str = escapeHTML(input.value);
+            if (!str) {
+                return
+            }
             var hex = colorHash.hex(str);
             var li = document.createElement('li');
             li.style.borderLeftColor = hex;
