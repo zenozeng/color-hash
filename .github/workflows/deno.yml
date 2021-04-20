@@ -30,12 +30,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Deno
-        uses: denolib/setup-deno@c7d7968ad4a59c159a777f79adddad6872ee8d96
+        uses: denoland/setup-deno@main
         with:
           deno-version: ${{ matrix.deno }} # tests across multiple Deno versions
 
-      - name: Cache Dependencies
-        run: deno cache deps.ts
-
       - name: Run Tests
-        run: deno test -A --unstable
+        run: deno test

@@ -4,7 +4,8 @@
     "description": "Generate color based on the given string (using HSL color space and SHA256).",
     "main": "dist/color-hash.js",
     "scripts": {
-        "prepublishOnly": "make build"
+        "prepublishOnly": "make build",
+        "test": "nodejs -e \"const ColorHash = require('.').default; new ColorHash();\""
     },
     "repository": {
         "type": "git",
