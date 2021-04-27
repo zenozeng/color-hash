@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.0.1
+
+- chore: dist/color-hash.js: tsc --module commonjs
+
 ## v2.0.0
 
 - refactor: rewrite using deno
