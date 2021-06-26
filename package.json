@@ -16,7 +16,6 @@
     "bugs": {
         "url": "https://github.com/zenozeng/color-hash/issues"
     },
-    "dependencies": {},
     "devDependencies": {
         "typescript": "^4.2.4"
     }
