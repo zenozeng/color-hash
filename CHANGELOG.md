@@ -6,6 +6,11 @@
 
 ## v2.0.0
 
+Note: default options were changed in v2.x. Use the following options to get the same result of v1.x
+```javascript
+const colorHash = new ColorHash({hash: 'bkdr', saturation: [0.65, 0.35, 0.5], lightness: [0.65, 0.35, 0.5]})
+```
+
 - refactor: rewrite using deno
 - feat: New default hash function: SHA256
 - feat: Deno Module: https://deno.land/x/color_hash
