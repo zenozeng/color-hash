@@ -116,7 +116,7 @@ It uses the `hash` function (default is BKDRHash) to calculate the hash of the g
 ```
 Hue = hash % 359. (Note that 359 is a prime)
 Saturation = SaturationArray[hash / 360 % SaturationArray.length]
-Lightness = LightnessArray[hash / 360 / Saturation.length % LightnessArray.length]
+Lightness = LightnessArray[hash / 360 / SaturationArray.length % LightnessArray.length]
 
 By default,
 SaturationArray = LightnessArray = [0.35, 0.5, 0.65]
