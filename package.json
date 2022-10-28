@@ -3,6 +3,7 @@
     "version": "2.0.1",
     "description": "Generate color based on the given string (using HSL color space and SHA256).",
     "main": "dist/color-hash.js",
+    "module": "dist/esm.js",
     "scripts": {
         "prepublishOnly": "make build",
         "test": "node -e \"const ColorHash = require('.').default; new ColorHash();\""
