@@ -1,6 +1,6 @@
 {
     "name": "color-hash",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Generate color based on the given string (using HSL color space and SHA256).",
     "main": "dist/color-hash.js",
     "module": "dist/esm.js",

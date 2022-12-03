@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.0.2
+
+- Expose ESM in package.json
+
 ## v2.0.1
 
 - chore: dist/color-hash.js: tsc --module commonjs
