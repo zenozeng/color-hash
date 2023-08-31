@@ -78,6 +78,24 @@
             li.innerHTML = '<span class="hex">' + hex.toUpperCase() + '</span><span class="text">' + str + '</span>';
             historyList.insertBefore(li, document.querySelector('#history li'));
         }
+
+        const HEADER_STYLE = 'color: #769c56; font-size: 24px; font-family: sans-serif;';
+        const MESSAGE_STYLE = 'color: #7B6D77; font-size: 16px; font-family: sans-serif;';
+        const CODE_STYLE = 'font-size: 14px; font-family: monospace;';
+
+        window.colorHash = colorHash;
+        window.ColorHash = ColorHash;
+        window._ = function(string) {
+            console.log(`%c ${string} `, `color: ${window.colorHash.hex(string)}; background: white; font-size: 24px; font-family: sans-serif;` )
+        };
+
+        console.log(
+          '%c🎨 color-hash console\n' +
+          '%cUse %c_, colorHash and ColorHash%c global variable to access colorHash functions.\n' +
+          'For example: %ccoloHash.hex("hello world")\n' +
+          '            _("hello world")',
+          HEADER_STYLE, MESSAGE_STYLE, CODE_STYLE, MESSAGE_STYLE, CODE_STYLE,
+        );
     </script>
 </body>
 
